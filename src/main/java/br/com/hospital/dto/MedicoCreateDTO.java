@@ -1,25 +1,17 @@
-package br.com.hospital.models;
+package br.com.hospital.dto;
 
-import br.com.hospital.dto.MedicoCreateDTO;
-import jakarta.persistence.*;
+import br.com.hospital.models.Endereco;
 
-@Entity
-@Table(name = "medicos")
-public class Medico {
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-	private String nome;
+public class MedicoCreateDTO {
+    private String nome;
     private String email;
     private String telefone;
     private String crm;
     private String especialidade;
-    private boolean ativo;
-
-    @Embedded
     private Endereco endereco;
+
     
-    public Medico(String nome, String email, String telefone, String crm, String especialidade,
+	public MedicoCreateDTO(String nome, String email, String telefone, String crm, String especialidade,
 			Endereco endereco) {
 		super();
 		this.nome = nome;
@@ -28,27 +20,6 @@ public class Medico {
 		this.crm = crm;
 		this.especialidade = especialidade;
 		this.endereco = endereco;
-	}
-    
-    public Medico(MedicoCreateDTO medicoCreateDTO) {
-		super();
-		this.nome = medicoCreateDTO.getNome();
-		this.email = medicoCreateDTO.getEmail();
-		this.telefone = medicoCreateDTO.getTelefone();
-		this.crm = medicoCreateDTO.getCrm();
-		this.especialidade = medicoCreateDTO.getEspecialidade();
-		this.endereco = medicoCreateDTO.getEndereco();
-	}
-  
-    
-    public Medico() {}
-    
-    public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
 	}
 
 	public String getNome() {
@@ -91,14 +62,6 @@ public class Medico {
 		this.especialidade = especialidade;
 	}
 
-	public boolean isAtivo() {
-		return ativo;
-	}
-
-	public void setAtivo(boolean ativo) {
-		this.ativo = ativo;
-	}
-
 	public Endereco getEndereco() {
 		return endereco;
 	}
@@ -106,4 +69,5 @@ public class Medico {
 	public void setEndereco(Endereco endereco) {
 		this.endereco = endereco;
 	}
+	
 }

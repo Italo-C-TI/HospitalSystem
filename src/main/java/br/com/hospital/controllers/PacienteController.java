@@ -2,15 +2,16 @@ package br.com.hospital.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import br.com.hospital.repositories.PacienteRepository;
-
-import java.util.List;
+import br.com.hospital.services.PacienteService;
 
 @RestController
 @RequestMapping("/pacientes")
-public class PacienteController {
+public class PacienteController {    
+    private final PacienteService pacienteService;
+
     @Autowired
-    private PacienteRepository pacienteRepository;
+    public PacienteController(PacienteService pacienteService) {
+        this.pacienteService = pacienteService;
+    }
 
 }

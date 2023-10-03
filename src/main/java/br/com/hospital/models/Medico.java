@@ -28,6 +28,7 @@ public class Medico {
 		this.crm = crm;
 		this.especialidade = especialidade;
 		this.endereco = endereco;
+		this.ativo = true;
 	}
     
     public Medico(MedicoCreateDTO medicoCreateDTO) {
@@ -38,6 +39,7 @@ public class Medico {
 		this.crm = medicoCreateDTO.getCrm();
 		this.especialidade = medicoCreateDTO.getEspecialidade();
 		this.endereco = medicoCreateDTO.getEndereco();
+		this.ativo = true;
 	}
   
     

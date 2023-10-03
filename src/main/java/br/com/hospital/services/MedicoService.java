@@ -16,7 +16,7 @@ public class MedicoService {
 
     public void cadastrarMedico(MedicoCreateDTO medicoCreateDTO) {
         if (medicoCreateDTO.getNome() == null || medicoCreateDTO.getEmail() == null || medicoCreateDTO.getCrm() == null || medicoCreateDTO.getEspecialidade() == null) {
-            throw new IllegalArgumentException("Todos os campos obrigatórios devem ser preenchidos.");
+            throw new IllegalArgumentException("Todos os campos obrigatórios devem ser preenchidos (nome, email,crm e especialidade).");
         }
 
         if (medicoRepository.existsByEmail(medicoCreateDTO.getEmail())) {

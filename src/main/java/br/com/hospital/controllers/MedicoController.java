@@ -30,10 +30,10 @@ public class MedicoController {
     
     @GetMapping("/listar")
     public Page<MedicoDTO> listarMedicos(
-            @RequestParam(defaultValue = "1") int page,
+            @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size,
             @RequestParam(defaultValue = "nome") String ordenacao) {
-        Pageable pageable = PageRequest.of(page - 1 , size, Sort.by(ordenacao));
+        Pageable pageable = PageRequest.of(page , size, Sort.by(ordenacao));
         Page<Medico> paginaMedicos = medicoService.listarMedicos(pageable);
         
         List<MedicoDTO> medicosDTO = paginaMedicos
@@ -51,7 +51,7 @@ public class MedicoController {
     	        medicoService.cadastrarMedico(medico);
     	        return new ResponseEntity<>(HttpStatus.CREATED);
     	    } catch (IllegalArgumentException e) {
-    	        return ResponseEntity.badRequest().build();
+    	        return ResponseEntity.badRequest().body(e.getMessage());
     	    }
     }
    
@@ -61,7 +61,7 @@ public class MedicoController {
 	        medicoService.atualizarMedico(crm, novoMedico);
 	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	    } catch (IllegalArgumentException e) {
-	        return ResponseEntity.badRequest().body(e.toString());
+	        return ResponseEntity.badRequest().body(e.getMessage());
 	    }
     }
     
@@ -71,7 +71,7 @@ public class MedicoController {
   	        medicoService.inativarMedico(crm);
   	        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   	    } catch (IllegalArgumentException e) {
-  	        return ResponseEntity.badRequest().body(e.toString());
+  	        return ResponseEntity.badRequest().body(e.getMessage());
   	    }
     }
 

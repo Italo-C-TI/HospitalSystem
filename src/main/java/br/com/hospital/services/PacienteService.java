@@ -16,8 +16,16 @@ public class PacienteService {
     private PacienteRepository pacienteRepository;
 
     public Paciente cadastrarPaciente(Paciente paciente) {
-        if (paciente.getNome() == null || paciente.getEmail() == null || paciente.getTelefone() == null || paciente.getCpf() == null || paciente.getEndereco() == null) {
+        if (paciente.getNome() == null || paciente.getEmail() == null || paciente.getTelefone() == null ||
+        	paciente.getCpf() == null || paciente.getEndereco() == null) {
             throw new IllegalArgumentException("Todos os campos obrigatórios devem ser preenchidos (nome, email , telefone , cpf, endereco).");
+        }
+        
+        if(	paciente.getEndereco().getCep() == null ||paciente.getEndereco().getCidade() == null ||
+        	paciente.getEndereco().getUf() == null || paciente.getEndereco().getBairro() == null ||
+        	paciente.getEndereco().getLogradouro() == null) {
+            throw new IllegalArgumentException("Todos os campos obrigatórios do endereço devem ser preenchidos (logradouro, bairro, cidade, UF e CEP).");
+
         }
         
         if (pacienteRepository.existsByEmail(paciente.getEmail())) {
@@ -27,7 +35,6 @@ public class PacienteService {
         if (pacienteRepository.existsByCpf(paciente.getCpf())) {
             throw new IllegalArgumentException("CPF já cadastrado.");
         }
-
         
         paciente.setAtivo(true);
 
@@ -38,8 +45,8 @@ public class PacienteService {
         return pacienteRepository.findAll(pageable);
     }
 
-    public Paciente atualizarPaciente(Long id, Paciente novoPaciente) {
-        Optional<Paciente> pacienteOptional = pacienteRepository.findById(id);
+    public Paciente atualizarPaciente(String cpf, Paciente novoPaciente) {
+        Optional<Paciente> pacienteOptional = pacienteRepository.findByCpf(cpf);
         if (!pacienteOptional.isPresent()) {
             throw new IllegalArgumentException("Paciente não encontrado.");
         }
@@ -63,8 +70,8 @@ public class PacienteService {
         return pacienteRepository.save(pacienteExistente);
     }
 
-    public void excluirPaciente(Long id) {
-        Optional<Paciente> pacienteOptional = pacienteRepository.findById(id);
+    public void excluirPaciente(String cpf) {
+        Optional<Paciente> pacienteOptional = pacienteRepository.findByCpf(cpf);
         if (!pacienteOptional.isPresent()) {
             throw new IllegalArgumentException("Paciente não encontrado.");
         }

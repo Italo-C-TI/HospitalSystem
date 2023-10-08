@@ -1,5 +1,8 @@
 package br.com.hospital.services;
 
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -75,5 +78,20 @@ public class MedicoService {
 
         medicoExistente.setAtivo(false);
         medicoRepository.save(medicoExistente);
+    }
+    
+    public Medico encontrarMedicoDisponivel(LocalDateTime dataHora) {
+
+        List<Medico> medicosDisponiveis = medicoRepository.findMedicosDisponiveis(dataHora);
+
+        if (!medicosDisponiveis.isEmpty()) {
+            Random random = new Random();
+            int index = random.nextInt(medicosDisponiveis.size());
+            Medico medico = medicosDisponiveis.get(index);
+            
+            return medico;
+        }
+
+        throw new RuntimeException("Nenhum médico disponível na data e hora especificadas.");
     }
 }

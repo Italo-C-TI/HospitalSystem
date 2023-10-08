@@ -19,16 +19,57 @@ public class Consulta {
     private Paciente paciente;
     
     @ManyToOne
-    private Medico médico;    
+    private Medico medico;    
     private LocalDateTime dataHora;
+    private Desmarcar desmarcar = new Desmarcar(false, "");
     
-	public Consulta(Long id, Paciente paciente, Medico médico, LocalDateTime dataHora) {
+	public Consulta(Paciente paciente, Medico medico, LocalDateTime dataHora) {
 		super();
-		this.id = id;
 		this.paciente = paciente;
-		this.médico = médico;
+		this.medico = medico;
 		this.dataHora = dataHora;
 	}
     
+	public Consulta() {}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public Paciente getPaciente() {
+		return paciente;
+	}
+
+	public void setPaciente(Paciente paciente) {
+		this.paciente = paciente;
+	}
+
+	public Medico getMedico() {
+		return medico;
+	}
+
+	public void setMedico(Medico medico) {
+		this.medico = medico;
+	}
+
+	public LocalDateTime getDataHora() {
+		return dataHora;
+	}
+
+	public void setDataHora(LocalDateTime dataHora) {
+		this.dataHora = dataHora;
+	}
+
+	public Desmarcar getDesmarcar() {
+		return desmarcar;
+	}
+
+	public void setDesmarcar(Desmarcar desmarcar) {
+		this.desmarcar = desmarcar;
+	}
     
 }
